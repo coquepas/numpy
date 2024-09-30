@@ -104,6 +104,8 @@ def verify_matching_signatures(implementation, dispatcher):
 
 def array_function_dispatch(dispatcher=None, module=None, verify=True,
                             docs_from_dispatcher=False):
+    if dispatcher.__doc__ is None:
+        dispatcher.__doc__ = ""
     """Decorator for adding dispatch with the __array_function__ protocol.
 
     See NEP-18 for example usage.
