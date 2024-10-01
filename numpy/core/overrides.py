@@ -104,8 +104,7 @@ def verify_matching_signatures(implementation, dispatcher):
 
 def array_function_dispatch(dispatcher=None, module=None, verify=True,
                             docs_from_dispatcher=False):
-    if dispatcher.__doc__ is None:
-        dispatcher.__doc__ = ""
+
     """Decorator for adding dispatch with the __array_function__ protocol.
 
     See NEP-18 for example usage.
@@ -155,7 +154,9 @@ def array_function_dispatch(dispatcher=None, module=None, verify=True,
                         "__array_function__ expects `like=` to be the last "
                         "argument and a keyword-only argument. "
                         f"{implementation} does not seem to comply.")
-
+                    
+        if dispatcher.__doc__ is None:
+            add_docstring(implementation, "")
         if docs_from_dispatcher:
             add_docstring(implementation, dispatcher.__doc__)
 
