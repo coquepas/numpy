@@ -155,10 +155,11 @@ def array_function_dispatch(dispatcher=None, module=None, verify=True,
                         "argument and a keyword-only argument. "
                         f"{implementation} does not seem to comply.")
                     
-        if dispatcher.__doc__ is None:
-            add_docstring(implementation, "")
         if docs_from_dispatcher:
-            add_docstring(implementation, dispatcher.__doc__)
+            if dispatcher.__doc__ is None:
+                add_docstring(implementation, "")
+            else:
+                add_docstring(implementation, dispatcher.__doc__)
 
         public_api = _ArrayFunctionDispatcher(dispatcher, implementation)
         public_api = functools.wraps(implementation)(public_api)
